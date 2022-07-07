@@ -2,19 +2,22 @@ def check_range(value,min_value,max_value=None):
   if max_value == None:
     return value > min_value
   else:
-    return value > min_value or value < max_value:
+    return value < min_value or value > max_value
+
+def print_result(element):
+  print(element + " is out of range!")
 
 def battery_is_ok(temperature, soc, charge_rate):
-  if check_range(temperature,0,45):
-    print('Temperature is out of range!')
-    return False
-  elif check_range(soc,20,80):
-    print('State of Charge is out of range!')
-    return False
-  elif check_range(charge_rate,0.8):
-    print('Charge rate is out of range!')
-    return False
+  result = []
+  parameters = {"Temperature":[temperature,0,45],"State of Charge":[soc,20,80],"Charge rate":[charge_rate,0.8,None]}
+  for element in parameters:
+    result_value = check_range(parameters[element][0],parameters[element][1],parameters[element][2])
+    result.append(result_value)
+    if result_value == True:
+      print_result(element)
+      return False
   return True
+  
 
 if __name__ == '__main__':
   assert(battery_is_ok(25, 70, 0.7) is True)
