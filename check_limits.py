@@ -52,8 +52,9 @@ def check_range(value,min_value,max_value=None):
 
 def check_warning(element,value,min_value,max_value=None):
   tolerance_percent = 5
-  if (max_value == None and value > min_value and value < (min_value + (min_value*tolerance_percent/100))) or \
-     (max_value != None and value > min_value and value < min_value + (max_value*tolerance_percent/100)):
+  if max_value == None and value > min_value and value < (min_value + (min_value*tolerance_percent/100)):
+    print_text("Warning", element, "min")
+  elif max_value != None and value > min_value and value < min_value + (max_value*tolerance_percent/100):
     print_text("Warning", element, "min")
   elif max_value != None and value < max_value and value > max_value - (max_value*tolerance_percent/100):
     print_text("Warning", element, "max")
